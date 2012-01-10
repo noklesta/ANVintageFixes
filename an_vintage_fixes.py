@@ -5,9 +5,13 @@ import sublime_plugin
 ###############################################################
 
 
-class AnBigSCommand(sublime_plugin.TextCommand):
+class AnSubstituteLineCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        self.view.insert(edit, 0, "Hello, ddd!")
+        for region in self.view.sel():
+            line = self.view.line(region)
+            self.view.erase(edit, line)
+            self.view.run_command('reindent')
+            self.view.run_command('enter_insert_mode')
 
 
 ###########################################
