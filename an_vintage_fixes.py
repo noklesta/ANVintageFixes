@@ -1,4 +1,6 @@
+import sublime
 import sublime_plugin
+import vintage
 
 ###############################################################
 # The S command should jump to indented position like Vim does
@@ -12,6 +14,64 @@ class AnSubstituteLineCommand(sublime_plugin.TextCommand):
             self.view.erase(edit, line)
             self.view.run_command('reindent')
             self.view.run_command('enter_insert_mode')
+
+
+###############################################################
+# In visual line mode, the c and C commands should replace each
+# selected region with a blank line and jump to indented
+# position, like Vim does. Make two subclasses so that we can
+# run the standard Vintage commands for each of them unless
+# we are in visual line mode (by the way, the "Cee" forms are
+# needed because ST2 doesn't accept a single capital letter
+# before "Command").
+###############################################################
+
+
+class AnChangeSelectedLinesCommand(sublime_plugin.TextCommand):
+    def perform_command(self, edit):
+        sel = self.view.sel()
+        new_sel = []
+
+        for region in sel:
+            self.view.replace(edit, region, "\n")
+            new_sel.append(sublime.Region(region.a, region.a))
+
+        sel.clear()
+        for region in new_sel:
+            sel.add(region)
+
+        self.view.run_command('reindent')
+        self.view.run_command('enter_insert_mode')
+
+
+class AnSmallCeeCommand(AnChangeSelectedLinesCommand):
+    def run(self, edit):
+        if vintage.g_input_state.motion_mode == vintage.MOTION_MODE_LINE:
+            self.perform_command(edit)
+        else:
+            # From the default Vintage keybindings; do the standard Vintage stuff
+            self.view.run_command('set_action', {
+                    "action": "enter_insert_mode",
+                    "description": "Change",
+                    "action_args": {"insert_command": "left_delete"}
+                }
+            )
+
+
+class AnBigCeeCommand(AnChangeSelectedLinesCommand):
+    def run(self, edit):
+        if vintage.g_input_state.motion_mode == vintage.MOTION_MODE_LINE:
+            self.perform_command(edit)
+        else:
+            # From the default Vintage keybindings; do the standard Vintage stuff
+            self.view.run_command('set_action_motion', {
+                    'action': 'enter_insert_mode',
+                    'action_args': {'insert_command': 'left_delete'},
+                    'motion': 'vi_move_to_hard_eol',
+                    "motion_args": {"repeat": 1, "extend": True},
+                    "motion_inclusive": True
+                }
+            )
 
 
 ###########################################
