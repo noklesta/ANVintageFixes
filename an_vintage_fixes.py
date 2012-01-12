@@ -27,7 +27,7 @@ class AnSubstituteLineCommand(sublime_plugin.TextCommand):
 ###############################################################
 
 
-class AnChangeSelectedLines(sublime_plugin.TextCommand):
+class ChangeSelectedLines(sublime_plugin.TextCommand):
     def perform_command(self, edit):
         sel = self.view.sel()
         new_sel = []
@@ -44,7 +44,7 @@ class AnChangeSelectedLines(sublime_plugin.TextCommand):
         self.view.run_command('enter_insert_mode')
 
 
-class AnSmallCeeCommand(AnChangeSelectedLines):
+class AnSmallCeeCommand(ChangeSelectedLines):
     def run(self, edit):
         if vintage.g_input_state.motion_mode == vintage.MOTION_MODE_LINE:
             self.perform_command(edit)
@@ -57,7 +57,7 @@ class AnSmallCeeCommand(AnChangeSelectedLines):
             })
 
 
-class AnBigCeeCommand(AnChangeSelectedLines):
+class AnBigCeeCommand(ChangeSelectedLines):
     def run(self, edit):
         if vintage.g_input_state.motion_mode == vintage.MOTION_MODE_LINE:
             self.perform_command(edit)
