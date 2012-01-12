@@ -72,6 +72,47 @@ class AnBigCeeCommand(ChangeSelectedLines):
             })
 
 
+###################################################################
+# In visual line mode, the p and P commands should replace each
+# selected region with the contents of the selected register,
+# not paste them before or after the selection as Vintage does now.
+# Also, it should move the cursor to the first non-blank character
+# after pasting.
+###################################################################
+
+
+class PasteLines(sublime_plugin.TextCommand):
+    def run(self, edit):
+        if vintage.g_input_state.motion_mode == vintage.MOTION_MODE_LINE:
+            self.perform_command(edit)
+        else:
+            # Not visual line mode, so do the standard Vintage stuff
+            self.perform_standard_vintage_command()
+
+    def perform_command(self, edit):
+        for region in self.view.sel():
+            self.view.erase(edit, region)
+
+        # In Vim, 'p' actually works like 'P' in visual line mode, so paste
+        # left regardless of which command we are running
+        self.view.run_command('vi_paste_left')
+        self.view.run_command('exit_visual_mode')
+        self.view.run_command('set_motion', {
+            "motion": "vi_move_to_first_non_white_space_character",
+            "motion_args": {"extend": True, "repeat": 1},
+            "clip_to_line": True
+        })
+
+
+class AnPasteLeftCommand(PasteLines):
+    def perform_standard_vintage_command(self):
+        self.view.run_command('vi_paste_left')
+
+
+class AnPasteRightCommand(PasteLines):
+    def perform_standard_vintage_command(self):
+        self.view.run_command('vi_paste_right')
+
 ###########################################
 # Scrolling by more than one line a a time
 ###########################################
