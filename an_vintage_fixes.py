@@ -1,6 +1,15 @@
 import sublime
 import sublime_plugin
-import vintage
+import sys
+import os
+
+# Pattern taken from the top of Alignment.py in the Alignment plugin
+# by Will Bond:
+# This is necessary due to load order of packages in Sublime Text 2
+sys.path.append(os.path.join(sublime.packages_path(), 'Vintage'))
+vintage = __import__('vintage')
+reload(vintage)
+del sys.path[-1]
 
 ###############################################################
 # The S command should jump to indented position like Vim does
