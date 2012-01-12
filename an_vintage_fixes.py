@@ -51,11 +51,10 @@ class AnSmallCeeCommand(AnChangeSelectedLines):
         else:
             # From the default Vintage keybindings; do the standard Vintage stuff
             self.view.run_command('set_action', {
-                    "action": "enter_insert_mode",
-                    "description": "Change",
-                    "action_args": {"insert_command": "left_delete"}
-                }
-            )
+                "action": "enter_insert_mode",
+                "description": "Change",
+                "action_args": {"insert_command": "left_delete"}
+            })
 
 
 class AnBigCeeCommand(AnChangeSelectedLines):
@@ -65,13 +64,12 @@ class AnBigCeeCommand(AnChangeSelectedLines):
         else:
             # From the default Vintage keybindings; do the standard Vintage stuff
             self.view.run_command('set_action_motion', {
-                    'action': 'enter_insert_mode',
-                    'action_args': {'insert_command': 'left_delete'},
-                    'motion': 'vi_move_to_hard_eol',
-                    "motion_args": {"repeat": 1, "extend": True},
-                    "motion_inclusive": True
-                }
-            )
+                'action': 'enter_insert_mode',
+                'action_args': {'insert_command': 'left_delete'},
+                'motion': 'vi_move_to_hard_eol',
+                "motion_args": {"repeat": 1, "extend": True},
+                "motion_inclusive": True
+            })
 
 
 ###########################################
