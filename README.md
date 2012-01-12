@@ -1,7 +1,7 @@
 # Sublime Text 2 plugin: ANVintageFixes
 
 Temporary fixes for some of the commands in the Vintage plugin for Sublime Text
-2 that do not work quite the way that they do in Vim.
+2 that do not work quite the way they do in Vim.
 
 Since I didn't have time to study the Vintage code thoroughly enough to make
 the proper changes in Vintage itself, these fixes are implemented using a mix
