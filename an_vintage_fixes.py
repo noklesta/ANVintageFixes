@@ -12,7 +12,7 @@ reload(vintage)
 del sys.path[-1]
 
 ###############################################################
-# The S command should jump to indented position like Vim does
+# The 'S' command should jump to indented position like Vim does
 ###############################################################
 
 
@@ -26,7 +26,7 @@ class AnSubstituteLineCommand(sublime_plugin.TextCommand):
 
 
 ###############################################################
-# In visual line mode, the c and C commands should replace each
+# In visual line mode, the 'c' and 'C' commands should replace each
 # selected region with a blank line and jump to indented
 # position, like Vim does. Make two subclasses so that we can
 # run the standard Vintage commands for each of them unless
@@ -82,7 +82,7 @@ class AnBigCeeCommand(ChangeSelectedLines):
 
 
 ###################################################################
-# In visual line mode, the p and P commands should replace each
+# In visual line mode, the 'p' and 'P' commands should replace each
 # selected region with the contents of the selected register,
 # not paste them before or after the selection as Vintage does now.
 # Also, it should move the cursor to the first non-blank character
