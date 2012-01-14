@@ -14,7 +14,7 @@ Since this is only meant to be temporary, I didn't bother to submit it to
 Package Control. You can just clone it from GitHub:
 
     cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/
-    git clone https://github.com/noklesta/ANVintageFixes
+    git clone http://github.com/noklesta/ANVintageFixes
 
 ## Fixes
 
