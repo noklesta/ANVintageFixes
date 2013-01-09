@@ -1,3 +1,7 @@
+-------------------------------------------------------------
+### Obsolete - all of these are now fixed in Vintage itself!
+-------------------------------------------------------------
+
 # Sublime Text 2 plugin: ANVintageFixes
 
 Temporary fixes for some of the commands in the Vintage plugin for Sublime Text
